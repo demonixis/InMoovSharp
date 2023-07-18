@@ -128,7 +128,7 @@ namespace Demonixis.InMoovSharp.Services
                 if (serialPort.IsOpen)
                 {
                     serialPort.ErrorReceived += (sender, e) => Robot.Log($"Error {e}");
-                    serialPort.DataReceived += (sender, e) => Robot.Log($"Data Received: {e}");
+                    serialPort.DataReceived += (sender, e) => { };// Robot.Log($"Data Received: {e}");
                     _serialPorts.Add(cardId, serialPort);
                     return true;
                 }

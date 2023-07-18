@@ -9,10 +9,10 @@ namespace Demonixis.InMoovSharp.Systems
         private ServoMixerService _servoMixerService;
 
         public bool IsSpeaking { get; private set; }
-        public float JawOpenTime { get; set; } = 0.25f;
-        public float JawCloseTime { get; set; } = 0.15f;
-        public byte JawAmplitude { get; set; } = 40;
-        public byte JawNeutralOffset { get; set; } = 10;
+        public float JawOpenTime { get; set; } = 0.15f;
+        public float JawCloseTime { get; set; } = 0.1f;
+        public byte JawAmplitude { get; set; } = 45;
+        public byte JawNeutralOffset { get; set; } = 5;
 
         protected override void SafeInitialize()
         {

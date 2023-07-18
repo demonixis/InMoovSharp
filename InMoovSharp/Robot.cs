@@ -15,6 +15,7 @@ namespace Demonixis.InMoovSharp
         private List<RobotService> _registeredServices;
         private List<RobotSystem> _registeredSystems;
         private List<Action> _waitingStartCallbacks;
+        private TimeManager _timeManager;
         private bool _disposed;
 
         /// <summary>
@@ -72,6 +73,7 @@ namespace Demonixis.InMoovSharp
             WorldContext = new BrainWorldContext();
             _currentServices = new List<RobotService>();
             _waitingStartCallbacks = new List<Action>();
+            _timeManager = new TimeManager();
         }
 
         protected virtual void RegisterServices()
@@ -130,6 +132,12 @@ namespace Demonixis.InMoovSharp
         {
             Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        public void UpdateRobot()
+        {
+            _timeManager.Update();
+            CoroutineManager.Update();
         }
 
         protected virtual void Dispose(bool disposing)

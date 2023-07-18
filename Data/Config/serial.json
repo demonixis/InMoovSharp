@@ -1,0 +1,10 @@
+[
+  {
+    "CardId": 0,
+    "PortName": "COM4"
+  },
+  {
+    "CardId": 1,
+    "PortName": "COM3"
+  }
+]

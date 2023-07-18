@@ -1,0 +1,9 @@
+{
+  "Chatbot": "AIMLNetService",
+  "SpeechSynthesis": "WindowsSpeechSynthesisWS",
+  "VoiceRecognition": "VoskVoiceRecognitionService",
+  "Navigation": "NavigationService",
+  "ComputerVision": "ComputerVisionService",
+  "ServoMixer": "ServoMixerService",
+  "XR": "XRService"
+}

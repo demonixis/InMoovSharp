@@ -38,7 +38,7 @@
                 break;
             }
 
-            bytes[i] = (byte) what[i];
+            bytes[i] = (byte)what[i];
         }
 
         string result = System.Text.Encoding.UTF8.GetString(bytes);

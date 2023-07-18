@@ -1,7 +1,5 @@
-using System.Collections.Generic;
-using System.IO;
-using System.Xml;
 using AIMLbot.Normalize;
+using System.Xml;
 
 namespace AIMLbot.Utils
 {

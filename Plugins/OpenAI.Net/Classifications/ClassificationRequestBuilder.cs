@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace OpenAI
+﻿namespace OpenAI
 {
     public class ClassificationRequestBuilder
     {

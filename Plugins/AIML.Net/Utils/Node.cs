@@ -1,8 +1,6 @@
-using System;
-using System.Collections.Generic;
+using AIMLbot.Normalize;
 using System.Text;
 using System.Xml;
-using AIMLbot.Normalize;
 
 namespace AIMLbot.Utils
 {

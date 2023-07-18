@@ -1,7 +1,6 @@
-using System;
+using AIMLbot.Utils;
 using System.Text;
 using System.Text.RegularExpressions;
-using AIMLbot.Utils;
 
 namespace AIMLbot.Normalize
 {

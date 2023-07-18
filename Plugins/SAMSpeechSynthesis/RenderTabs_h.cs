@@ -1,7 +1,7 @@
 
 public static partial class UnitySAM
 {
-    readonly static int[] tab48426 = new [] { 0x18, 0x1A, 0x17, 0x17, 0x17 };
+    readonly static int[] tab48426 = new[] { 0x18, 0x1A, 0x17, 0x17, 0x17 };
 
     readonly static int[] tab47492 = new int[]
     {

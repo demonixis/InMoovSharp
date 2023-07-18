@@ -31,9 +31,9 @@ public static partial class UnitySAM
     static int[] stressOutput = new int[256]; //tab47365
     static int[] phonemeLengthOutput = new int[256]; //tab47416
 
-// contains the final soundbuffer
+    // contains the final soundbuffer
     static int bufferpos = 0;
-//	static int[] buffer;
+    //	static int[] buffer;
 
     public static void SetInput(int[] _input)
     {
@@ -319,7 +319,7 @@ public static partial class UnitySAM
                 continue;
             }
             else
-                // if the following phoneme is a vowel, skip
+            // if the following phoneme is a vowel, skip
             if ((flags[Y] & 128) == 0)
             {
                 INC8(ref pos);
@@ -672,7 +672,7 @@ public static partial class UnitySAM
             A = phonemeindex[pos];
 
             // DEBUG: Print phoneme and index
-//			if (debug && A != 255) printf("%d: %c%c\n", X, signInputTable1[A], signInputTable2[A]);
+            //			if (debug && A != 255) printf("%d: %c%c\n", X, signInputTable1[A], signInputTable2[A]);
 
             // Is phoneme pause?
             if (A == 0)
@@ -956,11 +956,11 @@ public static partial class UnitySAM
             }
             else
 
-                // RULE:
-                //             G <VOWEL OR DIPHTONG NOT ENDING WITH IY> -> GX <VOWEL OR DIPHTONG NOT ENDING WITH IY>
-                // Example: GO
+            // RULE:
+            //             G <VOWEL OR DIPHTONG NOT ENDING WITH IY> -> GX <VOWEL OR DIPHTONG NOT ENDING WITH IY>
+            // Example: GO
 
-                // Is character a G?
+            // Is character a G?
             if (A == 60) // 'G'
             {
                 // Get the following character
@@ -973,7 +973,7 @@ public static partial class UnitySAM
                     continue;
                 }
                 else
-                    // If diphtong ending with YX, move continue processing next phoneme
+                // If diphtong ending with YX, move continue processing next phoneme
                 if ((flags[index] & 32) != 0)
                 {
                     INC8(ref pos);
@@ -1009,7 +1009,7 @@ public static partial class UnitySAM
             }
 
             // Replace with softer version
-//			if (debug) printf("RULE: S* %c%c -> S* %c%c\n", signInputTable1[Y], signInputTable2[Y],signInputTable1[Y-12], signInputTable2[Y-12]);
+            //			if (debug) printf("RULE: S* %c%c -> S* %c%c\n", signInputTable1[Y], signInputTable2[Y],signInputTable1[Y-12], signInputTable2[Y-12]);
             phonemeindex[pos] = Y - 12;
             INC8(ref pos);
             continue;
@@ -1237,12 +1237,12 @@ public static partial class UnitySAM
                         if (debug)
                             printf("RULE: Lengthen <FRICATIVE> or <VOICED> between <VOWEL> and <PUNCTUATION> by 1.5\n");
                         if (debug) printf("PRE\n");
-//					if (debug) printf("phoneme %d (%c%c) length %d\n", X, signInputTable1[phonemeindex[X]], signInputTable2[phonemeindex[X]], phonemeLength[X]);
+                        //					if (debug) printf("phoneme %d (%c%c) length %d\n", X, signInputTable1[phonemeindex[X]], signInputTable2[phonemeindex[X]], phonemeLength[X]);
 
                         phonemeLength[X] = A;
 
                         if (debug) printf("POST\n");
-//					if (debug) printf("phoneme %d (%c%c) length %d\n", X, signInputTable1[phonemeindex[X]], signInputTable2[phonemeindex[X]], phonemeLength[X]);
+                        //					if (debug) printf("phoneme %d (%c%c) length %d\n", X, signInputTable1[phonemeindex[X]], signInputTable2[phonemeindex[X]], phonemeLength[X]);
                     }
 
                 // keep moving forward
@@ -1300,13 +1300,13 @@ public static partial class UnitySAM
 
                             if (debug) printf("RULE: <VOWEL> <RX | LX> <CONSONANT> - decrease length by 1\n");
                             if (debug) printf("PRE\n");
-//							if (debug) printf("phoneme %d (%c%c) length %d\n", loopIndex, signInputTable1[phonemeindex[loopIndex]], signInputTable2[phonemeindex[loopIndex]], phonemeLength[loopIndex]);
+                            //							if (debug) printf("phoneme %d (%c%c) length %d\n", loopIndex, signInputTable1[phonemeindex[loopIndex]], signInputTable2[phonemeindex[loopIndex]], phonemeLength[loopIndex]);
 
                             // decrease length of vowel by 1 frame
                             DEC8(ref phonemeLength[loopIndex]);
 
                             if (debug) printf("POST\n");
-//							if (debug) printf("phoneme %d (%c%c) length %d\n", loopIndex, signInputTable1[phonemeindex[loopIndex]], signInputTable2[phonemeindex[loopIndex]], phonemeLength[loopIndex]);
+                            //							if (debug) printf("phoneme %d (%c%c) length %d\n", loopIndex, signInputTable1[phonemeindex[loopIndex]], signInputTable2[phonemeindex[loopIndex]], phonemeLength[loopIndex]);
                         }
 
                         // move ahead
@@ -1347,14 +1347,14 @@ public static partial class UnitySAM
 
                     if (debug) printf("RULE: <VOWEL> <UNVOICED PLOSIVE> - decrease vowel by 1/8th\n");
                     if (debug) printf("PRE\n");
-//					if (debug) printf("phoneme %d (%c%c) length %d\n", X, signInputTable1[phonemeindex[X]], signInputTable2[phonemeindex[X]],  phonemeLength[X]);
+                    //					if (debug) printf("phoneme %d (%c%c) length %d\n", X, signInputTable1[phonemeindex[X]], signInputTable2[phonemeindex[X]],  phonemeLength[X]);
 
                     // decrease length by 1/8th
                     mem56 = phonemeLength[X] >> 3;
                     phonemeLength[X] -= mem56;
 
                     if (debug) printf("POST\n");
-//					if (debug) printf("phoneme %d (%c%c) length %d\n", X, signInputTable1[phonemeindex[X]], signInputTable2[phonemeindex[X]], phonemeLength[X]);
+                    //					if (debug) printf("phoneme %d (%c%c) length %d\n", X, signInputTable1[phonemeindex[X]], signInputTable2[phonemeindex[X]], phonemeLength[X]);
 
                     // move ahead
                     INC8(ref loopIndex);
@@ -1366,14 +1366,14 @@ public static partial class UnitySAM
 
                 if (debug) printf("RULE: <VOWEL> <VOICED CONSONANT> - increase vowel by 1/2 + 1\n");
                 if (debug) printf("PRE\n");
-//				if (debug) printf("phoneme %d (%c%c) length %d\n", X-1, signInputTable1[phonemeindex[X-1]], signInputTable2[phonemeindex[X-1]],  phonemeLength[X-1]);
+                //				if (debug) printf("phoneme %d (%c%c) length %d\n", X-1, signInputTable1[phonemeindex[X-1]], signInputTable2[phonemeindex[X-1]],  phonemeLength[X-1]);
 
                 // decrease length
                 A = phonemeLength[(X - 1) & 255];
                 phonemeLength[(X - 1) & 255] = ((A >> 2) + A + 1) & 255; // 5/4*A + 1
 
                 if (debug) printf("POST\n");
-//				if (debug) printf("phoneme %d (%c%c) length %d\n", X-1, signInputTable1[phonemeindex[X-1]], signInputTable2[phonemeindex[X-1]], phonemeLength[X-1]);
+                //				if (debug) printf("phoneme %d (%c%c) length %d\n", X-1, signInputTable1[phonemeindex[X-1]], signInputTable2[phonemeindex[X-1]], phonemeLength[X-1]);
 
                 // move ahead
                 INC8(ref loopIndex);
@@ -1408,13 +1408,13 @@ public static partial class UnitySAM
                 // is next phoneme a stop consonant?
                 if (A != 0)
 
-                    // B*, D*, G*, GX, P*, T*, K*, KX
+                // B*, D*, G*, GX, P*, T*, K*, KX
 
                 {
-//					if (debug) printf("RULE: <NASAL> <STOP CONSONANT> - set nasal = 5, consonant = 6\n");
-//					if (debug) printf("POST\n");
-//					if (debug) printf("phoneme %d (%c%c) length %d\n", X, signInputTable1[phonemeindex[X]], signInputTable2[phonemeindex[X]], phonemeLength[X]);
-//					if (debug) printf("phoneme %d (%c%c) length %d\n", X-1, signInputTable1[phonemeindex[X-1]], signInputTable2[phonemeindex[X-1]], phonemeLength[X-1]);
+                    //					if (debug) printf("RULE: <NASAL> <STOP CONSONANT> - set nasal = 5, consonant = 6\n");
+                    //					if (debug) printf("POST\n");
+                    //					if (debug) printf("phoneme %d (%c%c) length %d\n", X, signInputTable1[phonemeindex[X]], signInputTable2[phonemeindex[X]], phonemeLength[X]);
+                    //					if (debug) printf("phoneme %d (%c%c) length %d\n", X-1, signInputTable1[phonemeindex[X-1]], signInputTable2[phonemeindex[X-1]], phonemeLength[X-1]);
 
                     // set stop consonant length to 6
                     phonemeLength[X] = 6;
@@ -1422,9 +1422,9 @@ public static partial class UnitySAM
                     // set nasal length to 5
                     phonemeLength[(X - 1) & 255] = 5;
 
-//					if (debug) printf("POST\n");
-//					if (debug) printf("phoneme %d (%c%c) length %d\n", X, signInputTable1[phonemeindex[X]], signInputTable2[phonemeindex[X]], phonemeLength[X]);
-//					if (debug) printf("phoneme %d (%c%c) length %d\n", X-1, signInputTable1[phonemeindex[X-1]], signInputTable2[phonemeindex[X-1]], phonemeLength[X-1]);
+                    //					if (debug) printf("POST\n");
+                    //					if (debug) printf("phoneme %d (%c%c) length %d\n", X, signInputTable1[phonemeindex[X]], signInputTable2[phonemeindex[X]], phonemeLength[X]);
+                    //					if (debug) printf("phoneme %d (%c%c) length %d\n", X-1, signInputTable1[phonemeindex[X-1]], signInputTable2[phonemeindex[X-1]], phonemeLength[X-1]);
                 }
 
                 // move to next phoneme
@@ -1470,13 +1470,13 @@ public static partial class UnitySAM
                 }
 
                 // RULE: <UNVOICED STOP CONSONANT> {optional silence} <STOP CONSONANT>
-//				if (debug) printf("RULE: <UNVOICED STOP CONSONANT> {optional silence} <STOP CONSONANT> - shorten both to 1/2 + 1\n");
-//				if (debug) printf("PRE\n");
-//				if (debug) printf("phoneme %d (%c%c) length %d\n", X, signInputTable1[phonemeindex[X]], signInputTable2[phonemeindex[X]], phonemeLength[X]);
-//				if (debug) printf("phoneme %d (%c%c) length %d\n", X-1, signInputTable1[phonemeindex[X-1]], signInputTable2[phonemeindex[X-1]], phonemeLength[X-1]);
+                //				if (debug) printf("RULE: <UNVOICED STOP CONSONANT> {optional silence} <STOP CONSONANT> - shorten both to 1/2 + 1\n");
+                //				if (debug) printf("PRE\n");
+                //				if (debug) printf("phoneme %d (%c%c) length %d\n", X, signInputTable1[phonemeindex[X]], signInputTable2[phonemeindex[X]], phonemeLength[X]);
+                //				if (debug) printf("phoneme %d (%c%c) length %d\n", X-1, signInputTable1[phonemeindex[X-1]], signInputTable2[phonemeindex[X-1]], phonemeLength[X-1]);
 
                 // X gets overwritten, so hold prior X value for debug statement
-//				int debugX = X;
+                //				int debugX = X;
 
                 // shorten the prior phoneme length to (length/2 + 1)
                 phonemeLength[X] = (phonemeLength[X] >> 1) + 1;
@@ -1485,9 +1485,9 @@ public static partial class UnitySAM
                 // also shorten this phoneme length to (length/2 +1)
                 phonemeLength[loopIndex] = (phonemeLength[loopIndex] >> 1) + 1;
 
-//				if (debug) printf("POST\n");
-//				if (debug) printf("phoneme %d (%c%c) length %d\n", debugX, signInputTable1[phonemeindex[debugX]], signInputTable2[phonemeindex[debugX]], phonemeLength[debugX]);
-//				if (debug) printf("phoneme %d (%c%c) length %d\n", debugX-1, signInputTable1[phonemeindex[debugX-1]], signInputTable2[phonemeindex[debugX-1]], phonemeLength[debugX-1]);
+                //				if (debug) printf("POST\n");
+                //				if (debug) printf("phoneme %d (%c%c) length %d\n", debugX, signInputTable1[phonemeindex[debugX]], signInputTable2[phonemeindex[debugX]], phonemeLength[debugX]);
+                //				if (debug) printf("phoneme %d (%c%c) length %d\n", debugX-1, signInputTable1[phonemeindex[debugX-1]], signInputTable2[phonemeindex[debugX-1]], phonemeLength[debugX-1]);
 
 
                 // move ahead
@@ -1514,15 +1514,15 @@ public static partial class UnitySAM
                 {
                     // Rule: <LIQUID CONSONANT> <DIPHTONG>
 
-//					if (debug) printf("RULE: <LIQUID CONSONANT> <DIPHTONG> - decrease by 2\n");
-//					if (debug) printf("PRE\n");
-//					if (debug) printf("phoneme %d (%c%c) length %d\n", X, signInputTable1[phonemeindex[X]], signInputTable2[phonemeindex[X]], phonemeLength[X]);
+                    //					if (debug) printf("RULE: <LIQUID CONSONANT> <DIPHTONG> - decrease by 2\n");
+                    //					if (debug) printf("PRE\n");
+                    //					if (debug) printf("phoneme %d (%c%c) length %d\n", X, signInputTable1[phonemeindex[X]], signInputTable2[phonemeindex[X]], phonemeLength[X]);
 
                     // decrease the phoneme length by 2 frames (20 ms)
                     phonemeLength[X] -= 2;
 
-//					if (debug) printf("POST\n");
-//					if (debug) printf("phoneme %d (%c%c) length %d\n", X, signInputTable1[phonemeindex[X]], signInputTable2[phonemeindex[X]], phonemeLength[X]);
+                    //					if (debug) printf("POST\n");
+                    //					if (debug) printf("phoneme %d (%c%c) length %d\n", X, signInputTable1[phonemeindex[X]], signInputTable2[phonemeindex[X]], phonemeLength[X]);
                 }
             }
 

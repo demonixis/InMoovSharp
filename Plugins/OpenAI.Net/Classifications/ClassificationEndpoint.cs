@@ -1,9 +1,6 @@
-﻿using System;
-using System.Net.Http;
+﻿using Newtonsoft.Json;
 using System.Security.Authentication;
 using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace OpenAI
 {
@@ -16,7 +13,7 @@ namespace OpenAI
     {
         private OpenAIAPI Api;
 
-        internal  ClassificationEndpoint(OpenAIAPI api)
+        internal ClassificationEndpoint(OpenAIAPI api)
         {
             Api = api;
         }

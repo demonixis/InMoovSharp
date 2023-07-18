@@ -2,19 +2,14 @@
 #define UNITY_ENGINE
 #endif
 
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Reflection;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Xml;
 using AIMLbot.AIMLTagHandlers;
 using AIMLbot.Normalize;
 using AIMLbot.Utils;
-using static System.Net.Mime.MediaTypeNames;
+using System.Globalization;
+using System.Reflection;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Xml;
 using Gender = AIMLbot.AIMLTagHandlers.Gender;
 using Input = AIMLbot.AIMLTagHandlers.Input;
 using Random = AIMLbot.AIMLTagHandlers.Random;

@@ -1,7 +1,7 @@
 public static partial class UnitySAM
 {
     static int A, X, Y;
-    
+
     static int[] inputtemp;   // secure copy of input tab36096
 
     static void Code37055(int mem59)
@@ -17,7 +17,7 @@ public static partial class UnitySAM
     static void Code37066(int mem58)
     {
         X = mem58;
-        INC8( ref X);
+        INC8(ref X);
         A = inputtemp[X];
         Y = A;
         A = tab36376[Y];
@@ -36,19 +36,19 @@ public static partial class UnitySAM
         return rules[address + Y];
     }
 
-	static void INC8( ref int xxx)
-	{
-		xxx++;
-		xxx &= 255;
-	}
+    static void INC8(ref int xxx)
+    {
+        xxx++;
+        xxx &= 255;
+    }
 
-	static void DEC8( ref int xxx)
-	{
-		xxx--;
-		xxx &= 255;
-	}
+    static void DEC8(ref int xxx)
+    {
+        xxx--;
+        xxx &= 255;
+    }
 
-    static bool TextToPhonemes( ref int[] input) // Code36484
+    static bool TextToPhonemes(ref int[] input) // Code36484
     {
         //unsigned char *tab39445 = &mem[39445];   //input and output
         //unsigned char mem29;
@@ -66,7 +66,7 @@ public static partial class UnitySAM
         int mem66 = 0;     // position of '('
         int mem36653 = 0;
 
-		inputtemp = new int[256];
+        inputtemp = new int[256];
 
         inputtemp[0] = 32;
 
@@ -82,59 +82,59 @@ public static partial class UnitySAM
             else if (A >= 96) A = A & 79;
 
             inputtemp[X] = A;
-			INC8(ref X);
-			INC8(ref Y);
+            INC8(ref X);
+            INC8(ref Y);
         } while (Y != 255);
 
-		printf( inputtemp);
+        printf(inputtemp);
 
         X = 255;
         inputtemp[X] = 27;
         mem61 = 255;
 
 
-    pos36550:
+        pos36550:
         A = 255;
         mem56 = 255;
 
 
-    pos36554:
+        pos36554:
         while (true)
         {
-			INC8( ref mem61);
+            INC8(ref mem61);
             X = mem61;
 
-			if (X >= inputtemp.Length) break;
+            if (X >= inputtemp.Length) break;
 
             A = inputtemp[X];
             mem64 = A;
             if (A == '[')
             {
-				INC8(ref mem56);
+                INC8(ref mem56);
                 X = mem56;
 
                 A = 155;
                 input[X] = 155;
-				INC8( ref X);
+                INC8(ref X);
 
                 //goto pos36542;
                 //          Code39771();    //Code39777();
 
 
-				var copy = new int[X];
-				System.Array.Copy( input, copy, X);
-				input = copy;
+                var copy = new int[X];
+                System.Array.Copy(input, copy, X);
+                input = copy;
 
                 return true;
             }
 
             //pos36579:
             if (A != '.') break;
-			INC8(ref X);
+            INC8(ref X);
             Y = inputtemp[X];
             A = tab36376[Y] & 1;
             if (A != 0) break;
-			INC8(ref mem56);
+            INC8(ref mem56);
             X = mem56;
             A = '.';
             input[X] = '.';
@@ -157,20 +157,20 @@ public static partial class UnitySAM
         if (A != 0) goto pos36677;
         A = 32;
 
-		if (X >= inputtemp.Length) return true;
+        if (X >= inputtemp.Length) return true;
 
         inputtemp[X] = ' ';
-		INC8(ref mem56);
+        INC8(ref mem56);
         X = mem56;
         if (X > 120) goto pos36654;
         input[X] = A;
         goto pos36554;
 
-    // -----
+        // -----
 
-    //36653 is unknown. Contains position
+        //36653 is unknown. Contains position
 
-    pos36654:
+        pos36654:
         input[X] = 155;
         A = mem61;
         mem36653 = A;
@@ -183,32 +183,32 @@ public static partial class UnitySAM
         mem61 = mem36653;
         goto pos36550;
 
-    pos36677:
+        pos36677:
         A = mem57 & 128;
         if (A == 0)
         {
             //36683: BRK
-			return false;
+            return false;
         }
 
         // go to the right rules for this character.
         X = mem64 - 'A';
         mem62 = tab37489[X] | (tab37515[X] << 8);
 
-    // -------------------------------------
-    // go to next rule
-    // -------------------------------------
+        // -------------------------------------
+        // go to next rule
+        // -------------------------------------
 
-    pos36700:
+        pos36700:
 
         // find next rule
         Y = 0;
         do
         {
-			mem62++;
+            mem62++;
             A = GetRuleByte(mem62, Y);
         } while ((A & 128) == 0);
-        INC8( ref Y);
+        INC8(ref Y);
 
         //pos36720:
         // find '('
@@ -216,7 +216,7 @@ public static partial class UnitySAM
         {
             A = GetRuleByte(mem62, Y);
             if (A == '(') break;
-			INC8( ref Y);
+            INC8(ref Y);
         }
         mem66 = Y;
 
@@ -224,7 +224,7 @@ public static partial class UnitySAM
         // find ')'
         do
         {
-			INC8( ref Y);
+            INC8(ref Y);
             A = GetRuleByte(mem62, Y);
         } while (A != ')');
         mem65 = Y;
@@ -233,7 +233,7 @@ public static partial class UnitySAM
         // find '='
         do
         {
-            INC8( ref Y);
+            INC8(ref Y);
             A = GetRuleByte(mem62, Y);
             A = A & 127;
         } while (A != '=');
@@ -244,16 +244,16 @@ public static partial class UnitySAM
 
         // compare the string within the bracket
         Y = mem66;
-        INC8( ref Y);
+        INC8(ref Y);
         //pos36759:
         while (true)
         {
             mem57 = inputtemp[X];
             A = GetRuleByte(mem62, Y);
             if (A != mem57) goto pos36700;
-            INC8( ref Y);
+            INC8(ref Y);
             if (Y == mem65) break;
-            INC8( ref X);
+            INC8(ref X);
             mem60 = X;
         }
 
@@ -263,10 +263,10 @@ public static partial class UnitySAM
         A = mem61;
         mem59 = mem61;
 
-    pos36791:
+        pos36791:
         while (true)
         {
-			DEC8( ref mem66);
+            DEC8(ref mem66);
             Y = mem66;
             A = GetRuleByte(mem62, Y);
             mem57 = A;
@@ -293,11 +293,11 @@ public static partial class UnitySAM
         if (A == ':') goto pos37040;
         //  Code42041();    //Error
         //36894: BRK
-		return false;
+        return false;
 
-    // --------------
+        // --------------
 
-    pos36895:
+        pos36895:
         Code37055(mem59);
         A = A & 128;
         if (A != 0) goto pos36700;
@@ -305,18 +305,18 @@ public static partial class UnitySAM
         mem59 = X;
         goto pos36791;
 
-    // --------------
+        // --------------
 
-    pos36910:
+        pos36910:
         Code37055(mem59);
         A = A & 64;
         if (A != 0) goto pos36905;
         goto pos36700;
 
-    // --------------
+        // --------------
 
 
-    pos36920:
+        pos36920:
         Code37055(mem59);
         A = A & 8;
         if (A == 0) goto pos36700;
@@ -324,22 +324,22 @@ public static partial class UnitySAM
         mem59 = X;
         goto pos36791;
 
-    // --------------
+        // --------------
 
-    pos36935:
+        pos36935:
         Code37055(mem59);
         A = A & 16;
         if (A != 0) goto pos36930;
         A = inputtemp[X];
         if (A != 72) goto pos36700;
-		DEC8( ref X);
+        DEC8(ref X);
         A = inputtemp[X];
         if ((A == 67) || (A == 83)) goto pos36930;
         goto pos36700;
 
-    // --------------
+        // --------------
 
-    pos36967:
+        pos36967:
         Code37055(mem59);
         A = A & 4;
         if (A != 0) goto pos36930;
@@ -349,10 +349,10 @@ public static partial class UnitySAM
         mem59 = X;
         goto pos36791;
 
-    // --------------
+        // --------------
 
 
-    pos37004:
+        pos37004:
         Code37055(mem59);
         A = A & 32;
         if (A == 0) goto pos36700;
@@ -361,79 +361,79 @@ public static partial class UnitySAM
         mem59 = X;
         goto pos36791;
 
-    // --------------
+        // --------------
 
-    pos37019:
+        pos37019:
         X = mem59;
-		DEC8( ref X);
+        DEC8(ref X);
         A = inputtemp[X];
         if ((A == 'E') || (A == 'I') || (A == 'Y')) goto pos37014;
         goto pos36700;
-    // --------------
+        // --------------
 
-    pos37040:
+        pos37040:
         Code37055(mem59);
         A = A & 32;
         if (A == 0) goto pos36791;
         mem59 = X;
         goto pos37040;
 
-    //---------------------------------------
+        //---------------------------------------
 
 
-    pos37077:
+        pos37077:
         X = mem58 + 1;
         A = inputtemp[X];
         if (A != 'E') goto pos37157;
-        INC8( ref X);
+        INC8(ref X);
         Y = inputtemp[X];
-		DEC8( ref X);
+        DEC8(ref X);
         A = tab36376[Y] & 128;
         if (A == 0) goto pos37108;
-        INC8( ref X);
+        INC8(ref X);
         A = inputtemp[X];
         if (A != 'R') goto pos37113;
         pos37108:
         mem58 = X;
         goto pos37184;
 
-    pos37113:
+        pos37113:
         if ((A == 83) || (A == 68)) goto pos37108;  // 'S' 'D'
         if (A != 76) goto pos37135; // 'L'
-        INC8( ref X);
+        INC8(ref X);
         A = inputtemp[X];
         if (A != 89) goto pos36700;
         goto pos37108;
 
-    pos37135:
+        pos37135:
         if (A != 70) goto pos36700;
-        INC8( ref X);
+        INC8(ref X);
         A = inputtemp[X];
         if (A != 85) goto pos36700;
-        INC8( ref X);
+        INC8(ref X);
         A = inputtemp[X];
         if (A == 76) goto pos37108;
         goto pos36700;
 
-    pos37157:
+        pos37157:
         if (A != 73) goto pos36700;
-        INC8( ref X);
+        INC8(ref X);
         A = inputtemp[X];
         if (A != 78) goto pos36700;
-        INC8( ref X);
+        INC8(ref X);
         A = inputtemp[X];
         if (A == 71) goto pos37108;
         //pos37177:
         goto pos36700;
 
-    // -----------------------------------------
+        // -----------------------------------------
 
-    pos37180:
+        pos37180:
 
         A = mem60;
         mem58 = A;
 
-    pos37184:
+        pos37184:
         Y = mem65 + 1;
 
         //37187: CPY 64
@@ -452,7 +452,7 @@ public static partial class UnitySAM
         mem58 = X;
         goto pos37184;
 
-    pos37226:
+        pos37226:
         A = mem57;
         if (A == 32) goto pos37295;   // ' '
         if (A == 35) goto pos37310;   // '#'
@@ -464,58 +464,58 @@ public static partial class UnitySAM
         if (A == 58) goto pos37440;   // ':'
         if (A == 37) goto pos37077;   // '%'
         if (A == 37) goto pos37077;   // '%'
-    //pos37291:
-        //  Code42041(); //Error
-        //37294: BRK
-		return false;
+                                      //pos37291:
+                                      //  Code42041(); //Error
+                                      //37294: BRK
+        return false;
 
-    // --------------
-    pos37295:
+        // --------------
+        pos37295:
         Code37066(mem58);
         A = A & 128;
         if (A != 0) goto pos36700;
-    
-    pos37305:
+
+        pos37305:
         mem58 = X;
         goto pos37184;
 
-    // --------------
+        // --------------
 
-    pos37310:
+        pos37310:
         Code37066(mem58);
         A = A & 64;
         if (A != 0) goto pos37305;
         goto pos36700;
 
-    // --------------
+        // --------------
 
 
-    pos37320:
+        pos37320:
         Code37066(mem58);
         A = A & 8;
         if (A == 0) goto pos36700;
 
-    pos37330:
+        pos37330:
         mem58 = X;
         goto pos37184;
 
-    // --------------
+        // --------------
 
-    pos37335:
+        pos37335:
         Code37066(mem58);
         A = A & 16;
         if (A != 0) goto pos37330;
         A = inputtemp[X];
         if (A != 72) goto pos36700;
-        INC8( ref X);
+        INC8(ref X);
         A = inputtemp[X];
         if ((A == 67) || (A == 83)) goto pos37330;
         goto pos36700;
 
-    // --------------
+        // --------------
 
 
-    pos37367:
+        pos37367:
         Code37066(mem58);
         A = A & 4;
         if (A != 0) goto pos37330;
@@ -525,9 +525,9 @@ public static partial class UnitySAM
         mem58 = X;
         goto pos37184;
 
-    // --------------
+        // --------------
 
-    pos37404:
+        pos37404:
         Code37066(mem58);
         A = A & 32;
         if (A == 0) goto pos36700;
@@ -535,39 +535,39 @@ public static partial class UnitySAM
         mem58 = X;
         goto pos37184;
 
-    // --------------
+        // --------------
 
-    pos37419:
+        pos37419:
         X = mem58;
-        INC8( ref X);
+        INC8(ref X);
         A = inputtemp[X];
         if ((A == 69) || (A == 73) || (A == 89)) goto pos37414;
         goto pos36700;
 
-    // ----------------------
+        // ----------------------
 
-    pos37440:
+        pos37440:
 
         Code37066(mem58);
         A = A & 32;
         if (A == 0) goto pos37184;
         mem58 = X;
         goto pos37440;
-    pos37455:
+        pos37455:
         Y = mem64;
         mem61 = mem60;
 
         if (debug)
             PrintRule(mem62);
 
-    pos37461:
+        pos37461:
         //37461: LDA (62),y
         A = GetRuleByte(mem62, Y);
         mem57 = A;
         A = A & 127;
         if (A != '=')
         {
-			INC8( ref mem56);
+            INC8(ref mem56);
             X = mem56;
             input[X] = A;
         }
@@ -576,8 +576,8 @@ public static partial class UnitySAM
         //37480: BPL 37485  //not negative flag
         if ((mem57 & 128) == 0) goto pos37485; //???
         goto pos36554;
-    pos37485:
-        INC8( ref Y);
+        pos37485:
+        INC8(ref Y);
         goto pos37461;
     }
 }

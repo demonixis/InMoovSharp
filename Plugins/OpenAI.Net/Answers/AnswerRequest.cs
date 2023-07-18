@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System.Collections.Generic;
 
 namespace OpenAI
 {
@@ -72,7 +71,7 @@ namespace OpenAI
         /// </summary>
         public AnswerRequest()
         {
-            
+
         }
 
         /// <summary>

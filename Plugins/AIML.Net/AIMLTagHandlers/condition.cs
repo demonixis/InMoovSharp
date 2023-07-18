@@ -1,6 +1,6 @@
+using AIMLbot.Utils;
 using System.Text.RegularExpressions;
 using System.Xml;
-using AIMLbot.Utils;
 
 namespace AIMLbot.AIMLTagHandlers
 {

@@ -1,6 +1,6 @@
+using AIMLbot.Utils;
 using System.Text;
 using System.Xml;
-using AIMLbot.Utils;
 
 namespace AIMLbot.AIMLTagHandlers
 {

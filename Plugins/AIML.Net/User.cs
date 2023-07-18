@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using AIMLbot.Utils;
 
 namespace AIMLbot

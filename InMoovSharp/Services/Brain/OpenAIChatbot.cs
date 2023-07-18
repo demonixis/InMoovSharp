@@ -39,7 +39,7 @@ namespace Demonixis.InMoovSharp.Services
                 SubmitResponse("OpenAI is not available");
                 return;
             }
-                
+
             var request = new CompletionRequestBuilder()
                 .WithPrompt(inputSpeech)
                 .WithMaxTokens(MaxToken)

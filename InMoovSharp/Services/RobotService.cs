@@ -25,8 +25,8 @@ namespace Demonixis.InMoovSharp.Services
         public bool Paused { get; protected set; }
 
         public RobotService()
-        { 
-            _customSettings = new Dictionary<string, string>(); 
+        {
+            _customSettings = new Dictionary<string, string>();
         }
 
         public virtual void Initialize()

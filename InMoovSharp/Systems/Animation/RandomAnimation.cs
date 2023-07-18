@@ -21,18 +21,13 @@ namespace Demonixis.InMoovSharp.Systems
             _servoActions = SetupDefaultValues();
         }
 
-        public override void Initialize()
-        {
-            Robot.Instance.WhenStarted(InternalInitialize);
-        }
-
         public override void Dispose()
         {
             base.Dispose();
             StopAllCoroutines();
         }
 
-        public void InternalInitialize()
+        protected override void SafeInitialize()
         {
             if (_servoMixerService == null)
             {

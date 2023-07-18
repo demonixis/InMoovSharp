@@ -50,6 +50,7 @@ namespace Demonixis.InMoovSharp
 #if UNITY_ENGINE
             Debug.Log(message);
 #else
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine(message);
 #endif
         }
@@ -390,6 +391,21 @@ namespace Demonixis.InMoovSharp
                 if (Array.IndexOf(systemsList, system.GetType().Name) == -1) continue;
                 system.SetActive(true);
             }
+        }
+
+        public bool SetSystemEnabled<T>(bool enabled) where T : RobotSystem
+        {
+            foreach (var system in _registeredSystems)
+            {
+                if (system is T)
+                {
+                    system.SetActive(enabled);
+                    Log($"{(enabled ? "Enabling" : "Disabling")} {system.GetType().Name}");
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         #endregion

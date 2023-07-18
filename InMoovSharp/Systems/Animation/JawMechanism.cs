@@ -14,23 +14,14 @@ namespace Demonixis.InMoovSharp.Systems
         public byte JawAmplitude { get; set; } = 40;
         public byte JawNeutralOffset { get; set; } = 10;
 
-        public override void Initialize()
+        protected override void SafeInitialize()
         {
-            Robot.Instance.WhenStarted(InternalInitialize);
-        }
-
-        private void InternalInitialize()
-        {
-            if (Started) return;
-
             var robot = Robot.Instance;
             _servoMixerService = robot.GetService<ServoMixerService>();
 
             var speechSynthesis = robot.GetService<SpeechSynthesisService>();
             speechSynthesis.SpeechStarted += SpeechSynthesisOnSpeechStarted;
             speechSynthesis.SpeechJustFinished += SpeechSynthesisOnSpeechFinished;
-
-            Started = true;
         }
 
         private void SpeechSynthesisOnSpeechStarted(string message)

@@ -54,7 +54,7 @@ namespace InMoovCmd
             }
 
             //if (RobotThread.IsAlive)
-                //RobotThread.Join();
+            //RobotThread.Join();
 
             Robot.Dispose();
 

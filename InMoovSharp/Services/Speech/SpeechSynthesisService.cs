@@ -1,4 +1,6 @@
-﻿namespace Demonixis.InMoovSharp.Services
+﻿using System;
+
+namespace Demonixis.InMoovSharp.Services
 {
     public class SpeechSynthesisService : RobotService
     {

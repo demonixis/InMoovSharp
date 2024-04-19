@@ -2,13 +2,15 @@
 using Demonixis.InMoovSharp.Settings;
 using Demonixis.InMoovSharp.Systems;
 using Demonixis.InMoovSharp.Utils;
+using System;
+using System.Collections.Generic;
 
 namespace Demonixis.InMoovSharp
 {
     public class Robot : IDisposable
     {
-        private const string ServiceListFilename = "services.json";
-        private const string SystemListFilename = "systems.json";
+        public const string ServiceListFilename = "services.json";
+        public const string SystemListFilename = "systems.json";
         private static Robot? _instance;
 
         private List<RobotService> _currentServices;
@@ -36,20 +38,23 @@ namespace Demonixis.InMoovSharp
         /// Retrieve an array of active services.
         /// </summary>
         public RobotService[] Services => _currentServices?.ToArray() ?? Array.Empty<RobotService>();
+        public RobotSystem[] Systems => _registeredSystems?.ToArray() ?? Array.Empty<RobotSystem>();
 
         public BrainWorldContext WorldContext { get; private set; }
         public bool Started { get; private set; }
         public bool LogEnabled { get; set; } = true;
-
-        public event Action<Robot> RobotInitialized;
+        
         public event Action<RobotService, RobotService> ServiceChanged;
         public event Action<RobotService, bool> ServicePaused;
+
+        public event Action<Robot> ServicePreInit;
+        public event Action<Robot> SystemPreInit;
 
         public static void Log(string message)
         {
             if (!Instance.LogEnabled) return;
-#if UNITY_ENGINE
-            Debug.Log(message);
+#if INMOOV_UNITY
+            UnityEngine.Debug.Log(message);
 #else
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine(message);
@@ -106,11 +111,12 @@ namespace Demonixis.InMoovSharp
             RegisterSystems();
 
             // TODO in prevision of deferred load.
+            ServicePreInit?.Invoke(this);
             InitializeServices();
 
             Started = true;
-            RobotInitialized?.Invoke(this);
 
+            SystemPreInit?.Invoke(this);
             InitializeSystems();
 
             if (_waitingStartCallbacks.Count <= 0) return;
@@ -119,7 +125,7 @@ namespace Demonixis.InMoovSharp
 
             _waitingStartCallbacks.Clear();
         }
-
+        
         public void WhenStarted(Action callback)
         {
             if (Started)
@@ -212,7 +218,7 @@ namespace Demonixis.InMoovSharp
             SelectService<NavigationService>(serviceList.Navigation);
             SelectService<ComputerVisionService>(serviceList.ComputerVision);
 
-            WorldContext.Setup(chatbotService, voiceRecognition, speechSynthesis);
+            WorldContext.Setup(this, chatbotService, voiceRecognition, speechSynthesis);
         }
 
         /// <summary>
@@ -314,9 +320,9 @@ namespace Demonixis.InMoovSharp
         /// </summary>
         /// <typeparam name="T">The type of service</typeparam>
         /// <param name="serviceName">The new service name</param>
-        public void ReplaceService<T>(string serviceName, T newService) where T : RobotService
+        public void ReplaceService<T>(string serviceName) where T : RobotService
         {
-            if (TryFindServiceByName(serviceName, out newService))
+            if (TryFindServiceByName(serviceName, out T newService))
             {
                 var oldService = GetService<T>();
                 oldService.Dispose();
@@ -413,6 +419,21 @@ namespace Demonixis.InMoovSharp
                 }
             }
 
+            return false;
+        }
+
+        public bool TryGetSystem<T>(out T robotSystem) where T : RobotSystem
+        {
+            foreach (var system in _registeredSystems)
+            {
+                if (system is T)
+                {
+                    robotSystem = (T)system;
+                    return true;
+                }
+            }
+
+            robotSystem = null;
             return false;
         }
 

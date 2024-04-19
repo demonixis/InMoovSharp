@@ -1,4 +1,6 @@
 using Demonixis.InMoovSharp.Settings;
+using System;
+using System.Collections.Generic;
 using System.IO.Ports;
 
 namespace Demonixis.InMoovSharp.Services
@@ -87,8 +89,8 @@ namespace Demonixis.InMoovSharp.Services
         public void SendData(int cardId, SerialDataBuffer buffer)
         {
 #if UNITY_EDITOR
-            if (_logFirstTrame && cardId == 0)
-                Robot.Log($"{cardId}_{buffer}");
+            //if (_logFirstTrame && cardId == 0)
+                //Robot.Log($"{cardId}_{buffer}");
 #endif
 
             if (_serialPorts == null || !_serialPorts.ContainsKey(cardId)) return;
@@ -108,8 +110,8 @@ namespace Demonixis.InMoovSharp.Services
 
                 var result = sp.Value.ReadExisting();
 #if UNITY_EDITOR
-                if (_logArduino && !string.IsNullOrEmpty(result))
-                    Robot.Log(result);
+                //if (_logArduino && !string.IsNullOrEmpty(result))
+                    //Robot.Log(result);
 #endif
             }
         }

@@ -1,5 +1,6 @@
 using Demonixis.InMoovSharp.Settings;
 using Demonixis.InMoovSharp.Utils;
+using System;
 using System.Collections;
 
 namespace Demonixis.InMoovSharp.Services
@@ -14,6 +15,8 @@ namespace Demonixis.InMoovSharp.Services
 
         public bool Running { get; protected set; }
         public float UpdateInterval { get; set; } = 1.0f / 30.0f;
+
+        public SerialPortManager SerialPortManager => _serialPortManager;
 
         public ServoMixerService()
         {

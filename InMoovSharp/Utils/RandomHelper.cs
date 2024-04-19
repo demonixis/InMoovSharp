@@ -1,4 +1,6 @@
-﻿namespace InMoov.Core.Utils
+﻿using System;
+
+namespace InMoov.Core.Utils
 {
     public static class RandomHelper
     {

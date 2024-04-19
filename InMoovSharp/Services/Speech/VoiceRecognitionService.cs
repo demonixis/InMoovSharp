@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace Demonixis.InMoovSharp.Services
 {
     public class VoiceRecognitionService : RobotService

@@ -1,5 +1,11 @@
 ﻿using Demonixis.InMoovSharp.Settings;
+using System;
 using System.Collections;
+using System.Collections.Generic;
+
+#if INMOOV_UNITY
+using UnityEngine;
+#endif
 
 namespace Demonixis.InMoovSharp.Services
 {
@@ -12,9 +18,13 @@ namespace Demonixis.InMoovSharp.Services
         public virtual RuntimePlatform[] SupportedPlateforms => new[]
         {
             RuntimePlatform.Android,
+            RuntimePlatform.IPhonePlayer,
             RuntimePlatform.LinuxPlayer,
+            RuntimePlatform.LinuxEditor,
             RuntimePlatform.WindowsPlayer,
-            RuntimePlatform.OSXPlayer
+            RuntimePlatform.WindowsEditor,
+            RuntimePlatform.OSXPlayer,
+            RuntimePlatform.OSXEditor
         };
 
         protected Dictionary<string, string> _customSettings;

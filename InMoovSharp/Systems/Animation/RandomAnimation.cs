@@ -1,6 +1,7 @@
 ﻿using Demonixis.InMoovSharp.Services;
 using Demonixis.InMoovSharp.Utils;
 using InMoov.Core.Utils;
+using System;
 using System.Collections;
 
 namespace Demonixis.InMoovSharp.Systems
@@ -9,16 +10,16 @@ namespace Demonixis.InMoovSharp.Systems
     {
         private ServoMixerService _servoMixerService;
         private GesturePlayer _gesturePlayer;
-        private ServoAnimation[] _servoActions;
 
-        private bool RandomHandGestures { get; set; } = true;
-        private bool RandomArmGestures { get; set; } = true;
-        private float[] HandGestureFrequency { get; set; } = new[] { 1.5f, 6.5f };
-        private float[] ArmGestureFrequency { get; set; } = new[] { 2.5f, 6.5f };
+        public ServoAnimation[] ServoActions;
+        public bool RandomHandGestures { get; set; } = true;
+        public bool RandomArmGestures { get; set; } = true;
+        public float[] HandGestureFrequency { get; set; } = new[] { 1.5f, 6.5f };
+        public float[] ArmGestureFrequency { get; set; } = new[] { 2.5f, 6.5f };
 
         public RandomAnimation()
         {
-            _servoActions = SetupDefaultValues();
+            ServoActions = SetupDefaultValues();
         }
 
         public override void Dispose()
@@ -35,7 +36,7 @@ namespace Demonixis.InMoovSharp.Systems
                 _gesturePlayer = new GesturePlayer(_servoMixerService);
             }
 
-            foreach (var action in _servoActions)
+            foreach (var action in ServoActions)
                 StartCoroutine(PlayAnimationAction(action));
 
             if (RandomHandGestures)

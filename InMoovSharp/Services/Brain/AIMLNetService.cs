@@ -1,5 +1,7 @@
 using AIMLbot;
 using Demonixis.InMoovSharp.Settings;
+using System;
+using System.IO;
 
 namespace Demonixis.InMoovSharp.Services
 {
@@ -13,7 +15,15 @@ namespace Demonixis.InMoovSharp.Services
 
             public bool IsValid()
             {
-                return !string.IsNullOrEmpty(User) && !string.IsNullOrEmpty(Language);
+                var valid = string.IsNullOrEmpty(User) && !string.IsNullOrEmpty(Language);
+
+                if (!valid)
+                {
+                    User = "Unity";
+                    Language = "en-US";
+                }
+
+                return true;
             }
 
             public static AIMLNetServiceData CreateNew()
@@ -48,8 +58,6 @@ namespace Demonixis.InMoovSharp.Services
 
         protected override void SafeInitialize()
         {
-
-
             InitializeBrain();
             LoadBrain();
         }
@@ -58,6 +66,12 @@ namespace Demonixis.InMoovSharp.Services
         {
             _pathToUserSettings = Path.Combine(SaveGame.GetSavePath("Brain"), $"aiml-{_data.Language}-graphmaster.xml");
             _aimlBot.CustomResourcePath = Path.Combine(AIMLPath, _data.Language);
+
+#if INMOOV_UNITY
+            if (!Directory.Exists(_aimlBot.CustomResourcePath))
+                _aimlBot.CustomResourcePath = Path.Combine(UnityEngine.Application.streamingAssetsPath, "AIML.Net", _data.Language);
+#endif
+
             _aimlBot.LoadSettings();
             _aimlBot.isAcceptingUserInput = false;
             _aimlBot.LoadAimlFromFiles();

@@ -1,11 +1,15 @@
 ﻿namespace Demonixis.InMoovSharp
 {
+#if !INMOOV_UNITY
     public enum RuntimePlatform
     {
         Android,
         LinuxPlayer,
+        LinuxEditor,
         WindowsPlayer,
+        WindowsEditor,
         OSXPlayer,
+        OSXEditor,
         IPhonePlayer,
         tvOS
     }
@@ -43,4 +47,5 @@
         public static string persistentDataPath => Path.Combine(Directory.GetCurrentDirectory());
         public static string streamingAssetsPath => Path.Combine(Directory.GetCurrentDirectory(), "StreamingAssets");
     }
+#endif
 }

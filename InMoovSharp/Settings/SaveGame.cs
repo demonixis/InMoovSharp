@@ -1,4 +1,10 @@
 ﻿using Newtonsoft.Json;
+using System;
+using System.IO;
+
+#if INMOOV_UNITY
+using UnityEngine;
+#endif
 
 namespace Demonixis.InMoovSharp.Settings
 {

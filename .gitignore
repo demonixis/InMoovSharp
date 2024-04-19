@@ -16,3 +16,6 @@ obj/
 [Rr]elease*/
 packages/
 .idea/.idea.C3DE
+InMoovSharp/.idea
+*.meta
+.idea/

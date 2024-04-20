@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="InTheHand.BluetoothLE" Version="4.0.36" />
+    <PackageReference Include="InTheHand.Net.Bluetooth" Version="4.1.43" />
     <PackageReference Include="System.IO.Ports" Version="7.0.0" />
   </ItemGroup>
 

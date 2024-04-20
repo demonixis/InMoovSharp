@@ -44,9 +44,9 @@ namespace Demonixis.InMoovSharp
             RuntimePlatform.tvOS;
 
         public static string companyName = "Demonixis Games";
-        public static string appVersion = "1.0.0";
-        public static string productName = "InMoovUnity";
-        public static string identifier = "net.demonixis.inmoovunity";
+        public static string appVersion = "2.0.0";
+        public static string productName = "InMoovSharp";
+        public static string identifier = "net.demonixis.inmoovsharp";
         public static string persistentDataPath => Path.Combine(Directory.GetCurrentDirectory());
         public static string streamingAssetsPath => Path.Combine(Directory.GetCurrentDirectory(), "StreamingAssets");
     }

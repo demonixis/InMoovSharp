@@ -19,3 +19,4 @@ packages/
 InMoovSharp/.idea
 *.meta
 .idea/
+.vscode
